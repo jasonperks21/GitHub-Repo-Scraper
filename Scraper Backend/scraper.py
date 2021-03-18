@@ -2,7 +2,6 @@ from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import re
 
-search = input("Enter search term: ")
 def scrape_github(search_term, num_pages=1):
 	my_url = 'https://github.com/search?q='+search_term.replace(" ", "+")
 
@@ -29,10 +28,15 @@ def scrape_github(search_term, num_pages=1):
 		except AttributeError:
 			description = None
 		# Get tags
-		tag_containers = container.findAll("a",{"class":"topic-tag topic-tag-link f6 px-2 mx-0"})
-		tags = []
-		for tcontainer in tag_containers:
-			tags.append(tcontainer.text.strip())
+		try:
+			tag_containers = container.findAll("a",{"class":"topic-tag topic-tag-link f6 px-2 mx-0"})
+			tags = []
+			for tcontainer in tag_containers:
+				tags.append(tcontainer.text.strip())
+			if len(tags) == 0:
+				tags = None
+		except AttributeError:
+			tags = None
 		# Get stars
 		try:
 			num_stars = container.find("a", href=re.compile("stargazers")).text.strip()
