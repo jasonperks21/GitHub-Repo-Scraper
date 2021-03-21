@@ -1,9 +1,11 @@
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import re
+from github import Github
+import urllib.parse
 
 def scrape_github(search_term, num_pages=1):
-	my_url = 'https://github.com/search?q='+search_term.replace(" ", "+")
+	my_url = 'https://github.com/search?q='+search_term.strip().replace(" ", "+")
 
 	# opening up connection, grabbing the page
 	uClient = uReq(my_url)
@@ -77,3 +79,17 @@ def scrape_github(search_term, num_pages=1):
 		# Add to list
 		scraped_list.append(repo_dict)
 	return scraped_list
+
+#def github_api(search_term, num_pages=1):
+ACCESS_TOKEN = 'f4fbd715766cde1dc4af0a75fd21eac83d3006c6'
+g = Github(ACCESS_TOKEN)
+keywords = input('Enter search term: ')
+#keywords = [keyword.strip() for keyword in keywords.split(',')]
+#query = '+'.join(keywords) + '+in:readme+in:description'
+query = keywords.strip().replace(' ', '+')#+'+topic:'+keywords.strip().replace(' ', '-')
+result = g.search_repositories(query, per_page=10)
+print(f'Found {result.totalCount} repo(s)')
+
+print(query)
+for repo in result.get_page(1):
+	print(repo.name)
