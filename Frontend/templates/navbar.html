@@ -12,43 +12,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <style>
         #search-bar {
+            margin: 0;
+            position: relative;
+            left: 25%;
             height: 46px;
             border-radius: 48px;
             border: 0.5px solid lightgrey;
-            width: 100%;
-            padding-right: 40px;
-            padding-left: 10px;
+            width: 50%;
+            text-align: center;
         }
 
-        #search-btn {
-            height: 46px;
-            border-top-right-radius: 48px;
-            border-bottom-right-radius: 48px;
-            padding: 15px;
-            font-size: 1.1em;
-            position: absolute;
-            right: 15px;
-            border-left: 0.5px solid lightgrey;
-        }
-
-        .menu-btn {
-            border-radius: 48px;
-            border: 0.5px solid lightgrey;
-            font-size: 0.9em;
-            padding: 2px 10px;
-            background-color: white;
-        }
-
-        .menu {
-            padding-top: 10px;
-            z-index: 200;
-            margin-top: 4px;
-            background-color: white;
-            position: absolute;
-        }
-
-        .menu-option {
-            padding: 6px 20px 6px;
+        #button-container {
+          margin: 0;
+          position: relative;
+          left: 39%;
         }
         
         #overlay {
@@ -64,38 +41,26 @@
 <body>
     <form class="p-3">
         <div class="col-12 col-md-8 container">
-            <input id="search-bar">
-            <button class="fas fa-search btn" id="search-btn"></button>
+            <input id="search-bar" type="text" placeholder="Enter Repository Name...">
         </div>
         <br>
         <div class="col-12 col-md-8 container">
             <div class="row col-11">
-                <div>
-                    <button onclick="dropDown(event);" class="menu-btn" type="button">
-                        Menu 1 &#9013;
+                <div id="button-container">
+                    <button type="button" onclick=" getValue(); window.location.href='{{ url_for( 'results' ) }}'; "  class="btn btn-primary btn-lg">
+                        Beautiful Soup
                     </button>
-                    <div class="d-none shadow rounded menu">
-                        <span class="d-block menu-option"><label><input type="checkbox">&nbsp;
-                                Option 1</label></span>
-                        <span class="d-block menu-option"><label><input type="checkbox">&nbsp;
-                                Option 2</label></span>
-                    </div>
+                    <button onclick="dropDown(event);" class="btn btn-success btn-lg" type="button">
+                         Github API
+                    </button>
                 </div>
               </div>
           </div>
         <div class="d-none" id="overlay" onclick="hide(event)"></div>
     </form>
     <script>
-        function dropDown(event) {
-            event.target.parentElement.children[1].classList.remove("d-none");
-            document.getElementById("overlay").classList.remove("d-none");
-        }
-        function hide(event) {
-            var items = document.getElementsByClassName('menu');
-            for (let i = 0; i < items.length; i++) {
-                items[i].classList.add("d-none");
-            }
-            document.getElementById("overlay").classList.add("d-none");
+        function getValue() {
+            var searchTerm = document.getElementById("search-bar").value;
         }
     </script>
 </body>
