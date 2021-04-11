@@ -1,0 +1,17 @@
+<html>
+<body>
+    <p>Enter your term:</p>
+    <form method="post" action=".">
+        <p><input name="search" /></p>
+        <p><input type="submit" name="action" value="scrape"/></p>
+        <p><input type="submit" name="action" value="api"/></p>
+    </form>
+
+    <h1 class="resultsHeader">Results</h1>
+
+    {% for item in result %}
+    <p class="results"> {{ item }} </p>
+    {% endfor %}
+
+</body>
+</html>
