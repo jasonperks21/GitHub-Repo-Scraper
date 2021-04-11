@@ -67,7 +67,7 @@ def scrape_github(search_term, num_pages=1):
 			num_issues = None
 		# Add to dictionary
 		repo_dict = {
-		"name":	repo_name,
+		"repo_name":	repo_name,
 		"description": description,
 		"tags": tags,
 		"num_stars": num_stars,
@@ -93,7 +93,7 @@ def github_api(search_term, num_pages=1):
 		"num_stars": repo.stargazers_count,
 		"language": repo.language,
 		"license": None,
-		"last_updated": repo.updated_at.isoformat(),
+		"last_updated": repo.updated_at,
 		"num_issues": repo.has_issues
 		}
 

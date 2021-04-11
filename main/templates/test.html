@@ -1,17 +1,41 @@
 <html>
 <body>
-    <p>Enter your term:</p>
+    <p>Enter a repo keyword:</p>
     <form method="post" action=".">
         <p><input name="search" /></p>
         <p><input type="submit" name="action" value="scrape"/></p>
         <p><input type="submit" name="action" value="api"/></p>
     </form>
 
-    <h1 class="resultsHeader">Results</h1>
+<style type="text/css">
+    table {
+      counter-reset: rowNumber;
+  }
 
-    {% for item in result %}
-    <p class="results"> {{ item }} </p>
-    {% endfor %}
+  table tr::before {
+      display: table-cell;
+      counter-increment: rowNumber;
+      content: counter(rowNumber) ".";
+      padding-right: 0.3em;
+      text-align: right;
+  }
+</style>
+
+    <h1 class="resultsHeader">Results for {{ search_term }}</h1>
+    {% if result %}
+    <table border=1>
+        {% for dict in result %}
+        <tr>
+            {% for key, value in dict.items() %}
+            <th> {{ key }} </th>
+            <td> {{ value }} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p> {% print("Couldn't find anything") %}</p>
+    {% endif %}
 
 </body>
 </html>

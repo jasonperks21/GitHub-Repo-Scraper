@@ -10,17 +10,17 @@ def home():
 	if request.method == "POST":
 		search_term = ""
 		search_term = request.form["search"]
-		if search_term is not "":
+		if search_term != "":
 			if request.form.get("action") == "scrape":
 				result = scrape_github(search_term,1)
 			elif request.form.get("action") == "api":
 				result = github_api(search_term,1)
-			return render_template("test.html", result=result)
+			return render_template("test.html", result=result, search_term=search_term)
 		else:
-			result = ["Could not find anything"]
-			return render_template("test.html", result=result)
+			result = []
+			return render_template("test.html", result=result, search_term=search_term)
 	elif request.method == "GET":
-		return render_template("test.html", result=result)
+		return render_template("test.html", result=result, search_term=search_term)
 
 if __name__=='__main__':
 	app.run(debug=True)
