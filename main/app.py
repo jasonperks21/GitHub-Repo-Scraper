@@ -7,8 +7,8 @@ result = ""
 @app.route("/", methods=["POST", "GET"])
 def home():
 	global result
+	search_term = ""
 	if request.method == "POST":
-		search_term = ""
 		search_term = request.form["search"]
 		if search_term != "":
 			if request.form.get("action") == "scrape":
@@ -20,6 +20,7 @@ def home():
 			result = []
 			return render_template("test.html", result=result, search_term=search_term)
 	elif request.method == "GET":
+		search_term = ""
 		return render_template("test.html", result=result, search_term=search_term)
 
 if __name__=='__main__':
